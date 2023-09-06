@@ -1,10 +1,22 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import EmailEntry from './components/EmailEntry.vue'
+import * as Email from './email'
 
 onMounted(() => {
   document.body.className = 'font-libre-franklin'
 })
+
+const userInput = ref('')
+const emailState = ref('empty' as Email.EmailState)
+
+const onInput = (event: Event) => {
+  return Email.onInput(event, userInput)
+}
+
+const onClick = () => {
+  return Email.onClick(emailState, userInput)
+}
 </script>
 
 <template>
@@ -16,7 +28,12 @@ onMounted(() => {
       </p>
       <p class="text-sm desktop:text-xl">Subscribe and get notified</p>
     </div>
-    <EmailEntry></EmailEntry>
+    <EmailEntry 
+      :onInput="onInput" 
+      :onClick="onClick"
+      :borderColor="Email.borderColor"
+      :emailState="emailState"
+      ></EmailEntry>
     <img class="desktop:pt-20" src="./assets/illustration-dashboard.png">
     <p class="absolute bottom-6 w-full text-center text-xs text-gray desktop:-bottom-40">&#169; Copyright Ping. All rights reserved.</p>
   </div>

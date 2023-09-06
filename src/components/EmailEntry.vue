@@ -1,18 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import * as Email from '../email'
+import { EmailState } from '../email';
 
-const userInput = ref('')
-const emailState = ref('empty' as Email.EmailState)
-
-const onInput = (event: Event) => {
-  return Email.onInput(event, userInput)
-}
-
-const onClick = () => {
-  return Email.onClick(emailState, userInput)
-}
-
+defineProps<{
+  onInput: (event: Event) => void, 
+  onClick: () => void,
+  borderColor: (es: EmailState) => string,
+  emailState: EmailState
+}>()
 </script>
 
 <template>
@@ -33,7 +27,7 @@ const onClick = () => {
     
     desktop:w-[30rem]
     " 
-    :class="Email.borderColor(emailState)"
+    :class="borderColor(emailState)"
     type="text" 
     placeholder="Your email address..."
     @input="onInput"
