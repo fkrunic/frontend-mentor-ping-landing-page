@@ -25,7 +25,7 @@ const widget = Email.buildWidget(userInput, emailState)
     <EmailEntry 
       :onInput="widget.onInput" 
       :onClick="widget.onClick"
-      :borderColor="Email.borderColor"
+      :borderColor="widget.borderColor"
       :emailState="emailState"
       ></EmailEntry>
     <img class="desktop:pt-20" src="./assets/illustration-dashboard.png">
