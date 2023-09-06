@@ -1,20 +1,29 @@
 <script setup lang="ts">
 import { match } from 'ts-pattern'
 import { ref } from 'vue';
+import * as EmailValidator from 'email-validator'
 
-type EmailState
-  = { kind: 'empty' }
-  | { kind: 'valid' }
-  | { kind: 'invalid' }
+type EmailState = 'empty' | 'valid' | 'invalid'
 
-const emailState = ref({ kind: 'empty'} as EmailState)
+const userInput = ref('')
+const emailState = ref('empty' as EmailState)
 
 const borderColor = (es: EmailState): string => {
   return match(es)
-    .with({ kind: 'empty'}, () => 'border-pale-blue')
-    .with({ kind: 'valid'}, () => 'border-pale-blue')
-    .with({ kind: 'invalid'}, () => 'border-red')
+    .with('empty', () => 'border-pale-blue')
+    .with('valid', () => 'border-pale-blue')
+    .with('invalid', () => 'border-light-red')
     .exhaustive()
+}
+
+const onInput = (event: Event): void => {
+  const input = (event.target as HTMLInputElement).value
+  userInput.value = input
+}
+
+const onClick = (): void => {
+  emailState.value = EmailValidator.validate(userInput.value) ? 'valid' : 'invalid'
+  console.log(userInput.value + ":" + emailState.value)
 }
 
 </script>
@@ -37,7 +46,11 @@ const borderColor = (es: EmailState): string => {
       :class="borderColor(emailState)"
       type="text" 
       placeholder="Your email address..."
+      @input="onInput"
       >    
+    <p v-if="emailState === 'invalid'"
+      class="text-light-red text-xs italic pb-2 -mt-1"
+      >Please provide a valid email address</p>
     <p class="
       w-full
       p-4
@@ -54,6 +67,7 @@ const borderColor = (es: EmailState): string => {
       font-semibold 
       
       cursor-pointer"
+      @click="onClick"
     >Notify Me</p>
   </div>          
 </template>
