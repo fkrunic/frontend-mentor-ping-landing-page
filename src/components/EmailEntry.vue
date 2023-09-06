@@ -1,63 +1,47 @@
 <script setup lang="ts">
-import { match } from 'ts-pattern'
 import { ref } from 'vue';
-import * as EmailValidator from 'email-validator'
-
-type EmailState = 'empty' | 'valid' | 'invalid'
+import * as Email from '../email'
 
 const userInput = ref('')
-const emailState = ref('empty' as EmailState)
+const emailState = ref('empty' as Email.EmailState)
 
-const borderColor = (es: EmailState): string => {
-  return match(es)
-    .with('empty', () => 'border-pale-blue')
-    .with('valid', () => 'border-pale-blue')
-    .with('invalid', () => 'border-light-red')
-    .exhaustive()
+const onInput = (event: Event) => {
+  return Email.onInput(event, userInput)
 }
 
-const onInput = (event: Event): void => {
-  const input = (event.target as HTMLInputElement).value
-  userInput.value = input
-}
-
-const onClick = (): void => {
-  emailState.value = EmailValidator.validate(userInput.value) ? 'valid' : 'invalid'
-  console.log(userInput.value + ":" + emailState.value)
+const onClick = () => {
+  return Email.onClick(emailState, userInput)
 }
 
 </script>
 
 <template>
   <div class="flex flex-col gap-3 items-center w-full desktop:flex-row desktop:justify-center">
+    <input class="
+    w-full 
+    p-4 
+    pl-8
 
-    <div class="flex flex-col items-center pb-2">
-      <input class="
-      w-full 
-      p-4 
-      pl-8
-
-      text-sm 
-      
-      outline-none 
-      border-[1px] 
-      border-solid 
-      rounded-full 
-      
-      placeholder-pale-blue
-      
-      desktop:w-[30rem]
-      " 
-      :class="borderColor(emailState)"
-      type="text" 
-      placeholder="Your email address..."
-      @input="onInput"
-      >    
-      <p v-if="emailState === 'invalid'"
-        class="text-light-red text-xs italic pt-1"
-        >Please provide a valid email address
-      </p>
-    </div>
+    text-sm 
+    
+    outline-none 
+    border-[1px] 
+    border-solid 
+    rounded-full 
+    
+    placeholder-pale-blue
+    
+    desktop:w-[30rem]
+    " 
+    :class="Email.borderColor(emailState)"
+    type="text" 
+    placeholder="Your email address..."
+    @input="onInput"
+    >    
+    <p v-if="emailState === 'invalid'"
+      class="text-light-red text-xs italic pt-1 -mt-2"
+      >Please provide a valid email address
+    </p>
 
     <p class="
       w-full

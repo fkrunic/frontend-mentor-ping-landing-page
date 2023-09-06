@@ -1,11 +1,8 @@
 import { match } from 'ts-pattern'
-import { ref } from 'vue';
+import { Ref} from 'vue';
 import * as EmailValidator from 'email-validator'
 
-type EmailState = 'empty' | 'valid' | 'invalid'
-
-const userInput = ref('')
-const emailState = ref('empty' as EmailState)
+export type EmailState = 'empty' | 'valid' | 'invalid'
 
 export const borderColor = (es: EmailState): string => {
   return match(es)
@@ -15,12 +12,12 @@ export const borderColor = (es: EmailState): string => {
     .exhaustive()
 }
 
-export const onInput = (event: Event): void => {
+export const onInput = (event: Event, userInput: Ref<string>): void => {
   const input = (event.target as HTMLInputElement).value
   userInput.value = input
 }
 
-export const onClick = (): void => {
+export const onClick = (emailState: Ref<EmailState>, userInput: Ref<string>): void => {
   emailState.value = EmailValidator.validate(userInput.value) ? 'valid' : 'invalid'
   console.log(userInput.value + ":" + emailState.value)
 }
