@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 
 onMounted(() => {
-  document.body.className = ''
+  document.body.className = 'font-libre-franklin'
 })
 </script>
 
