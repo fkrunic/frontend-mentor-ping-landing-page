@@ -1,5 +1,5 @@
 import { match } from 'ts-pattern'
-import { Ref} from 'vue';
+import { Ref, ref} from 'vue';
 import * as EmailValidator from 'email-validator'
 
 export type EmailState = 'empty' | 'valid' | 'invalid'
@@ -20,4 +20,31 @@ export const onInput = (event: Event, userInput: Ref<string>): void => {
 export const onClick = (emailState: Ref<EmailState>, userInput: Ref<string>): void => {
   emailState.value = EmailValidator.validate(userInput.value) ? 'valid' : 'invalid'
   console.log(userInput.value + ":" + emailState.value)
+}
+
+export interface EmailWidget {
+  onInput: (event: Event) => void, 
+  onClick: () => void,
+  borderColor: (es: EmailState) => string,
+  emailState: EmailState  
+}
+
+export const buildWidget = (): EmailWidget => {
+  const userInput = ref('')
+  const emailState = ref('empty' as EmailState)
+
+  const overloadedOnInput = (event: Event): void => {
+    return onInput(event, userInput)
+  }
+
+  const overloadedOnClick = () => {
+    return onClick(emailState, userInput)
+  }
+
+  return {
+    onInput: overloadedOnInput,
+    onClick: overloadedOnClick,
+    borderColor,
+    emailState: emailState.value
+  }
 }

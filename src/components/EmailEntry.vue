@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import { EmailState } from '../email';
-
-defineProps<{
-  onInput: (event: Event) => void, 
-  onClick: () => void,
-  borderColor: (es: EmailState) => string,
-  emailState: EmailState
-}>()
+import { EmailWidget } from '../email';
+defineProps<EmailWidget>()
 </script>
 
 <template>
