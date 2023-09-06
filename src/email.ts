@@ -29,9 +29,7 @@ export interface EmailWidget {
   emailState: EmailState  
 }
 
-export const buildWidget = (): EmailWidget => {
-  const userInput = ref('')
-  const emailState = ref('empty' as EmailState)
+export const buildWidget = (userInput: Ref<string>, emailState: Ref<EmailState>): EmailWidget => {
 
   const overloadedOnInput = (event: Event): void => {
     return onInput(event, userInput)

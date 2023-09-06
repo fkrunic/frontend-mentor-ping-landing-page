@@ -10,13 +10,7 @@ onMounted(() => {
 const userInput = ref('')
 const emailState = ref('empty' as Email.EmailState)
 
-const onInput = (event: Event) => {
-  return Email.onInput(event, userInput)
-}
-
-const onClick = () => {
-  return Email.onClick(emailState, userInput)
-}
+const widget = Email.buildWidget(userInput, emailState)
 </script>
 
 <template>
@@ -29,8 +23,8 @@ const onClick = () => {
       <p class="text-sm desktop:text-xl">Subscribe and get notified</p>
     </div>
     <EmailEntry 
-      :onInput="onInput" 
-      :onClick="onClick"
+      :onInput="widget.onInput" 
+      :onClick="widget.onClick"
       :borderColor="Email.borderColor"
       :emailState="emailState"
       ></EmailEntry>
