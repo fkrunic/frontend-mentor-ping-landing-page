@@ -29,8 +29,10 @@ const onClick = (): void => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 items-center w-full">
-    <input class="
+  <div class="flex flex-col gap-3 items-center w-full desktop:flex-row desktop:justify-center">
+
+    <div class="flex flex-col items-center pb-2">
+      <input class="
       w-full 
       p-4 
       pl-8
@@ -42,15 +44,21 @@ const onClick = (): void => {
       border-solid 
       rounded-full 
       
-      placeholder-pale-blue" 
+      placeholder-pale-blue
+      
+      desktop:w-[30rem]
+      " 
       :class="borderColor(emailState)"
       type="text" 
       placeholder="Your email address..."
       @input="onInput"
       >    
-    <p v-if="emailState === 'invalid'"
-      class="text-light-red text-xs italic pb-2 -mt-1"
-      >Please provide a valid email address</p>
+      <p v-if="emailState === 'invalid'"
+        class="text-light-red text-xs italic pt-1"
+        >Please provide a valid email address
+      </p>
+    </div>
+
     <p class="
       w-full
       p-4
