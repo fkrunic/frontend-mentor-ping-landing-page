@@ -8,7 +8,7 @@ defineProps<EmailWidget>()
   <div class="flex flex-col justify-start items-center min-h-screen gap-10 my-20">
     <p class="text-3xl font-bold">PING<span class="text-blue">.</span></p>
 
-    <div class="flex flex-col items-center gap-6">
+    <div class="flex flex-col items-center gap-8">
       <p class="text-5xl text-gray">We are launching <span class="font-bold text-black">soon!</span></p>
       <p class="text-lg text-very-dark-blue">Subscribe and get notified</p>
       <div class="relative flex flex-row items-center gap-4">
