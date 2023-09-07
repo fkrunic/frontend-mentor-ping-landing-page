@@ -9,18 +9,18 @@ onMounted(() => {
 
 const userInput = ref('')
 const emailState = ref('empty' as Email.EmailState)
-
 const widget = Email.buildWidget(userInput, emailState)
+
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-start gap-8 min-h-screen m-10 desktop:mx-96 desktop:pb-20">
-    <p class="pt-20 text-2xl font-bold desktop:text-3xl">PING<span class="text-blue">.</span></p>
+  <div class="flex flex-col items-center justify-start gap-8 min-h-screen m-10">
+    <p class="pt-20 text-2xl font-bold">PING<span class="text-blue">.</span></p>
     <div class="flex flex-col items-center gap-4">
-      <p class="text-2xl text-gray desktop:text-5xl">
+      <p class="text-2xl text-gray">
         We are launching <span class="font-bold text-black">soon!</span>
       </p>
-      <p class="text-sm desktop:text-xl">Subscribe and get notified</p>
+      <p class="text-sm">Subscribe and get notified</p>
     </div>
     <EmailEntry 
       :onInput="widget.onInput" 
@@ -29,6 +29,6 @@ const widget = Email.buildWidget(userInput, emailState)
       :emailState="emailState"
       ></EmailEntry>
     <img class="desktop:pt-20" src="./assets/illustration-dashboard.png">
-    <p class="absolute bottom-6 w-full text-center text-xs text-gray desktop:-bottom-40">&#169; Copyright Ping. All rights reserved.</p>
+    <p class="absolute bottom-6 w-full text-center text-xs text-gray">&#169; Copyright Ping. All rights reserved.</p>
   </div>
 </template>

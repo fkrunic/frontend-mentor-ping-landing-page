@@ -1,5 +1,5 @@
 import { match } from 'ts-pattern'
-import { Ref, ref} from 'vue';
+import { Ref } from 'vue';
 import * as EmailValidator from 'email-validator'
 
 export type EmailState = 'empty' | 'valid' | 'invalid'
